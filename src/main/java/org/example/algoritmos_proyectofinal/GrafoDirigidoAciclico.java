@@ -8,7 +8,7 @@ public class GrafoDirigidoAciclico {
 
     //Constructor
     public GrafoDirigidoAciclico(int n){
-        numVertices = n-1;
+        numVertices = n;
         this.matrizAdyacencia = new boolean[n][n];
         this.nombresVertices = new String[n];
 
@@ -62,15 +62,16 @@ public class GrafoDirigidoAciclico {
 
     //Regresa el número de aristas del grafo.
     public int cuantasAristasHay(){
-        //Recorremos la matriz buscando los "true"
+        int contador = 0;
         for (int fila = 0; fila < numVertices; fila++) {
-            for (int col = 0; col < numAristas; col++) {
+            for (int col = 0; col < numVertices; col++) {
                 if (matrizAdyacencia[fila][col]) {
-                    numAristas++;
+                    contador++;
                 }
             }
         }
-        return numAristas;
+        this.numAristas = contador;
+        return this.numAristas;
     }
 
     //Regresa true si existe una arista del vértice i al vértice j.
@@ -101,7 +102,7 @@ public class GrafoDirigidoAciclico {
     }
 
     //Regresa true si el grafo tiene ciclos, regresa falso en caso contrario.
-    //Utiliza busqeuda en profundidad
+    //
     public boolean tieneCiclos(){
         return false; // de mientras
     }
@@ -143,7 +144,7 @@ public class GrafoDirigidoAciclico {
     //Elimina todas las aristas del grafo
     public void eliminarAristas(){
         for(int i = 0; i < numVertices; i++){
-            for(int j = 0; j < numVertices; i++){
+            for(int j = 0; j < numVertices; j++){
                 matrizAdyacencia[i][j] = false;
             }
         }
