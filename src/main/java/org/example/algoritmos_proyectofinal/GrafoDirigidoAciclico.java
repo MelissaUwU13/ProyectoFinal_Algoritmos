@@ -6,14 +6,12 @@ public class GrafoDirigidoAciclico {
     private boolean[][] matrizAdyacencia;
     private String[] nombresVertices; //Para guardar los nombres
 
-
     //Constructor
     public GrafoDirigidoAciclico(int n){
         numVertices = n;
         this.matrizAdyacencia = new boolean[n][n];
         this.nombresVertices = new String[n];
 
-        //DE MIENTRAS!!!
         //Los numeramos de 0 a n-1
         for (int i = 0; i < n; i++) {
             this.nombresVertices[i] = String.valueOf(i);
@@ -25,8 +23,8 @@ public class GrafoDirigidoAciclico {
     /**
      * Regresa el grado de entrada del vértice i.
      * Si i está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
-    */
-     public int gradoDeEntrada(int i){
+     */
+    public int gradoDeEntrada(int i){
 
         //si el vertice esta fuera de rango es INVALIDO
         if(i<0 || i>=numVertices){
@@ -47,8 +45,8 @@ public class GrafoDirigidoAciclico {
     /**
      * Regresa el grado de salida del vértice i.
      * Si i está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
-    */
-     public int gradoDeSalida(int i){
+     */
+    public int gradoDeSalida(int i){
         //si el vertice esta fuera de rango es INVALIDO
         if(i<0 || i>=numVertices){
             throw new IllegalArgumentException("El vertice " + i + " esta fuera de rango.");
@@ -67,8 +65,8 @@ public class GrafoDirigidoAciclico {
 
     /**
      * Regresa el número de aristas del grafo.
-    */
-     public int cuantasAristasHay(){
+     */
+    public int cuantasAristasHay(){
         int contador = 0;
         for (int fila = 0; fila < numVertices; fila++) {
             for (int col = 0; col < numVertices; col++) {
@@ -82,10 +80,10 @@ public class GrafoDirigidoAciclico {
     }
 
     /**
-      * Regresa true si existe una arista del vértice i al vértice j.
-      * Si i o j está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
-    */
-     public boolean adyacente(int i, int j){
+     * Regresa true si existe una arista del vértice i al vértice j.
+     * Si i o j está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
+     */
+    public boolean adyacente(int i, int j){
         if(i < 0 || i>=numVertices){
             throw new IllegalArgumentException("El vertice " + i + " esta fuera de rango.");
         }
@@ -97,10 +95,10 @@ public class GrafoDirigidoAciclico {
     }
 
     /**
-        * Regresa true si existe un camino directo del vértice i al j.
-        * Considere utilizar una Cola. También pregúntate: ¿es i un camino?.
-        * Si j está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
-        * Regresa true si existe un camino directo o indirecto del vértice i al j
+     * Regresa true si existe un camino directo del vértice i al j.
+     * Considere utilizar una Cola. También pregúntate: ¿es i un camino?.
+     * Si j está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
+     * Regresa true si existe un camino directo o indirecto del vértice i al j
      */
     public boolean conectados(int i, int j) {
         if (i < 0 || i >= numVertices || j < 0 || j >= numVertices) {
@@ -145,9 +143,9 @@ public class GrafoDirigidoAciclico {
     }
 
     /**
-        * Regrese el ordenamiento topológico de los vértices, separe cada prioridad del vértice por un guión -.
-        * restricción es, si existen varias posibilidades para incluir dentro del ordenamiento, se debe seleccionar el que tenga más prioridad.
-        * Recuerde que se deben mostrar todos los vértices del grafo.
+     * Regrese el ordenamiento topológico de los vértices, separe cada prioridad del vértice por un guión -.
+     * restricción es, si existen varias posibilidades para incluir dentro del ordenamiento, se debe seleccionar el que tenga más prioridad.
+     * Recuerde que se deben mostrar todos los vértices del grafo.
      */
     public String topologicalSort(){
         //guarda numero de grados de entrada de cada vertice
@@ -231,7 +229,7 @@ public class GrafoDirigidoAciclico {
     }
 
     /**
-      * Regresará los datos del grafo en forma de matriz, para mostrar en consola.
+     * Regresará los datos del grafo en forma de matriz, para mostrar en consola.
      */
     public String mostrarEstructura(){
         StringBuilder GrafoDirigido = new StringBuilder();
@@ -263,7 +261,7 @@ public class GrafoDirigidoAciclico {
      * Inserta una nueva arista del vértice i al vértice j, siempre y cuando esto no ocasione la aparición de un ciclo.
      * Regresa true si la inserción tuvo éxito, en otro caso regresa falso. Si i y j son iguales regresa falso y si la arista de i a j ya existe, de nuevo, regresa falso.
      * Si i o j está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
-    */
+     */
     // Inserta una nueva arista del vértice i al vértice j, siempre y cuando esto no ocasione la aparición de un ciclo.
     //Regresa true si la inserción tuvo éxito, en otro caso regresa falso. Si i y j son iguales regresa falso y si la arista de i a j ya existe, de nuevo, regresa falso.
     //Si i o j está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
@@ -286,12 +284,12 @@ public class GrafoDirigidoAciclico {
             return false;
         }
 
-       //si no hay errores anteriores suponemos que esta bien
+        //si no hay errores anteriores suponemos que esta bien
         matrizAdyacencia[i][j] = true;
 
         //verificamos si tiene ciclos
         if (this.tieneCiclos()) {
-           //si tiene ciclos eliminamos la relacion intentada por el usuario
+            //si tiene ciclos eliminamos la relacion intentada por el usuario
             matrizAdyacencia[i][j] = false;
             return false;
         }
@@ -302,7 +300,7 @@ public class GrafoDirigidoAciclico {
     }
 
     /**
-      * Elimina todas las aristas del grafo
+     * Elimina todas las aristas del grafo
      */
     public void eliminarAristas(){
         for(int i = 0; i < numVertices; i++){

@@ -6,11 +6,11 @@ public class Main {
     public static void main(String[] args) {
         Scanner leer = new Scanner(System.in);
 
-        System.out.println("-------------Proyecto grafos ---------------");
-        System.out.println("By: Melissa Rico Aguilar & Jose Gonzalo Pimienta Cisneros");
-        System.out.println("---------------------------------------------");
+        System.out.println("------------------- Proyecto grafos ----------------------");
+        System.out.println("   Melissa Rico Aguilar & Jose Gonzalo Pimienta Cisneros  ");
+        System.out.println("----------------------------------------------------------");
 
-        System.out.println("\nPASO 1 - CREACION DEL GRAFO");
+        System.out.println("\nCREACION DEL GRAFO");
 
         //Crear grafo, vertices y aristas
         System.out.print("\n¿Cuántos vértices tendrá tu grafo? ");
@@ -18,6 +18,18 @@ public class Main {
         leer.nextLine(); //Limpiar el buffer
 
         GrafoDirigidoAciclico grafo = new GrafoDirigidoAciclico(numVertices);
+
+        /**
+        System.out.println("\nEJEMPLO GRAFOOOO");
+        try {
+            grafo.insertarArista(0, 2);
+            grafo.insertarArista(0, 3);
+            grafo.insertarArista(2, 1);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        */
+
 
         System.out.println("Ahora toca introducir las flechas al grafo");
 
@@ -42,25 +54,32 @@ public class Main {
                 System.out.println("Error: " + e.getMessage());
             }
 
-            System.out.print("\nIngresa 0 para seguir agregando o -1 para terminar el proceso!!\n");
+
+            System.out.print("\nIngresa 0 para seguir agregando o ingresa -1 para terminar el proceso!!\n");
             opcionAristas = leer.nextInt();
-            //pendiete una comprobacion de que ingrese bien la opcion
+            leer.nextLine(); //Limpiar el buffer
+
+            //comprobacion en caso de poner la variable incorrecta
+            while (opcionAristas != 0 && opcionAristas != -1) {
+                System.out.println("\nERROR: Entrada no válida!!");
+                System.out.print("\nIngresa 0 para seguir agregando o ingresa -1 para terminar el proceso!!\n");
+                opcionAristas = leer.nextInt();
+                leer.nextLine(); //Limpiar el buffer
+            }
 
         }while(opcionAristas != -1);
 
-        boolean salida = false;
+        int opcionMenu = 0;
 
-
-        while(!salida) {
+        do{
             System.out.println("\nBienvenidos al menu de opciones.");
-            System.out.println("\n1. Mostrar informacion");
-            System.out.println("\n2. Insertar aristas");
-            System.out.println("\n3. Eliminar todas las aristas");
-            System.out.println("\n4. Ordenar con Topological Sort");
-            System.out.println("\n5. Salir");
-            int opcionMenu = leer.nextInt();
+            System.out.println("1. Mostrar informacion");
+            System.out.println("2. Insertar aristas");
+            System.out.println("3. Eliminar todas las aristas");
+            System.out.println("4. Ordenar con Topological Sort");
+            System.out.println("5. Salir");
+            opcionMenu = leer.nextInt();
             leer.nextLine(); //Limpiar el buffer
-
             //comprobacion de que ponga una opcion correcta o le permita regresar???
 
             switch (opcionMenu) {
@@ -81,6 +100,7 @@ public class Main {
                     System.out.println("\n¿Tiene ciclos? " + grafo.tieneCiclos());
                     break;
                 case 2:
+                    System.out.println("\n=============================================");
                     System.out.print("\nIngresa el vértice ORIGEN: ");
                     int origen = leer.nextInt();
 
@@ -99,20 +119,23 @@ public class Main {
                     }
                     break;
                 case 3:
+                    System.out.println("\n=============================================");
                     grafo.eliminarAristas();
                     System.out.println("\nLas aristas han sido eliminadas!");
                     break;
                 case 4:
+                    System.out.println("\n=============================================");
                     System.out.println("Grafo ordenado: ");
                     System.out.println(grafo.topologicalSort());
                     break;
                 case 5:
+                    System.out.println("\n=============================================");
                     System.out.println("FIN DEL PROGRAMA!!");
-                    salida=true;
                     break;
                 default:
+                    System.out.println("\n=============================================");
                     System.out.println("Opcion no valida");
             }
-        }
+        }while (opcionMenu!=5);
     }
 }
