@@ -3,25 +3,53 @@ package org.example.algoritmos_proyectofinal;
 public class GrafoDirigidoAciclico {
     private int numVertices;
     private int numAristas;
+    private boolean[][] matrizAdyacencia;
 
     //Constructor
     public GrafoDirigidoAciclico(int n){
         numVertices = n-1;
+        this.matrizAdyacencia = new boolean[n][n];
     }
-
 
     //METODOS DE ACCESO
 
     //Regresa el grado de entrada del vértice i.
     //Si i está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
     public int gradoDeEntrada(int i){
-        return 0; // de mientras
+
+        //si el vertice esta fuera de rango es INVALIDO
+        if(i<0 || i>=numVertices){
+            throw new IllegalArgumentException("El vertice " + i + " esta fuera de rango.");
+        }
+        //grado de entrada
+        int contador  = 0;
+
+        for(int fila = 0 ; fila < numVertices ; fila ++){
+            //si un vertice se dirige a i incrementa
+            if(matrizAdyacencia[fila][i]){
+                contador++;
+            }
+        }
+        return contador;
     }
 
     //Regresa el grado de salida del vértice i.
     //Si i está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
     public int gradoDeSalida(int i){
-        return 0; // de mientras
+        //si el vertice esta fuera de rango es INVALIDO
+        if(i<0 || i>=numVertices){
+            throw new IllegalArgumentException("El vertice " + i + " esta fuera de rango.");
+        }
+        //grado de entrada
+        int contador  = 0;
+
+        for(int columna = 0 ; columna < numVertices ; columna ++){
+            //si un vertice se dirige a i incrementa
+            if(matrizAdyacencia[i][columna]){
+                contador++;
+            }
+        }
+        return contador;
     }
 
     //Regresa el número de aristas del grafo.
