@@ -41,6 +41,7 @@ public class ColaSimple<T> {
         return fin;
     }
 
+
     public void insertar(T dato){
         if(fin<cola.length) {
             fin++;
@@ -86,6 +87,5 @@ public class ColaSimple<T> {
     public boolean estaVacia() {
         return inicio == -1;
     }
-
 
 }
