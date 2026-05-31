@@ -150,7 +150,48 @@ public class GrafoDirigidoAciclico {
         * Recuerde que se deben mostrar todos los vértices del grafo.
      */
     public String topologicalSort(){
-        return null; // de mientras
+        //guarda numero de grados de entrada de cada vertice
+        int[] gradosEntradaDeVertices = new int[numVertices];
+        //vertices que ya ordenamos
+        boolean[] visitados = new boolean[numVertices];
+        //resultado en stringg
+        StringBuilder resultado = new StringBuilder();
+
+        //guardamos los grados de entrada de todos los vertices
+        for (int i = 0; i < numVertices; i++) {
+            gradosEntradaDeVertices[i] = gradoDeEntrada(i);
+        }
+
+
+        for (int paso = 0; paso < numVertices; paso++) {
+            //-1 para no confundir con indice
+            int verticeSeleccionado = -1;
+
+            //buscamos vertice con grado de entrada 0 y no visitado
+            for (int i = 0; i < numVertices; i++) {
+                if (gradosEntradaDeVertices[i] == 0 && !visitados[i]) {
+                    verticeSeleccionado = i;
+                    break;
+                }
+            }
+            //marcamos como visitado el seleccionado
+            visitados[verticeSeleccionado] = true;
+
+            //nombre del vertice como indice en el arreglo de nombres seguido de un guion
+            resultado.append(nombresVertices[verticeSeleccionado]).append("-");
+
+            //quita las conexiones del vertice seleccionado para no estorbar
+            for (int j = 0; j < numVertices; j++) {
+                if (matrizAdyacencia[verticeSeleccionado][j]) {
+                    gradosEntradaDeVertices[j]--;
+                }
+            }
+        }
+
+        if (resultado.length() > 0) {
+            resultado.setLength(resultado.length() - 1);
+        }
+        return resultado.toString();
     }
 
     /**

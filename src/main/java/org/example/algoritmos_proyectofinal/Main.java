@@ -56,7 +56,8 @@ public class Main {
             System.out.println("\n1. Mostrar informacion");
             System.out.println("\n2. Insertar aristas");
             System.out.println("\n3. Eliminar todas las aristas");
-            System.out.println("\n4. Salir");
+            System.out.println("\n4. Ordenar con Topological Sort");
+            System.out.println("\n5. Salir");
             int opcionMenu = leer.nextInt();
             leer.nextLine(); //Limpiar el buffer
 
@@ -102,6 +103,10 @@ public class Main {
                     System.out.println("\nLas aristas han sido eliminadas!");
                     break;
                 case 4:
+                    System.out.println("Grafo ordenado: ");
+                    System.out.println(grafo.topologicalSort());
+                    break;
+                case 5:
                     System.out.println("FIN DEL PROGRAMA!!");
                     salida=true;
                     break;
