@@ -72,15 +72,15 @@ public class Main {
         int opcionMenu = 0;
 
         do{
+            System.out.println("\n=============================================");
             System.out.println("\nBienvenidos al menu de opciones.");
-            System.out.println("1. Mostrar informacion");
+            System.out.println("\n1. Mostrar informacion");
             System.out.println("2. Insertar aristas");
             System.out.println("3. Eliminar todas las aristas");
             System.out.println("4. Ordenar con Topological Sort");
             System.out.println("5. Salir");
             opcionMenu = leer.nextInt();
             leer.nextLine(); //Limpiar el buffer
-            //comprobacion de que ponga una opcion correcta o le permita regresar???
 
             switch (opcionMenu) {
                 case 1:

@@ -4,7 +4,7 @@ public class GrafoDirigidoAciclico {
     private int numVertices;
     private int numAristas=0;
     private boolean[][] matrizAdyacencia;
-    private String[] nombresVertices; //Para guardar los nombres
+    private String[] nombresVertices;
 
     //Constructor
     public GrafoDirigidoAciclico(int n){
@@ -105,9 +105,9 @@ public class GrafoDirigidoAciclico {
             throw new IllegalArgumentException("Los índices están fuera del rango permitido.");
         }
 
-        //No ciclos!!
+        //¿es i un camino? SI ES POSIBLE UN CAMINO A SI MISMO
         if (i == j) {
-            return false;
+            return true;
         }
 
         ColaSimple<Integer> cola = new ColaSimple<>(numVertices);
@@ -159,7 +159,6 @@ public class GrafoDirigidoAciclico {
         for (int i = 0; i < numVertices; i++) {
             gradosEntradaDeVertices[i] = gradoDeEntrada(i);
         }
-
 
         for (int paso = 0; paso < numVertices; paso++) {
             //-1 para no confundir con indice
@@ -241,17 +240,24 @@ public class GrafoDirigidoAciclico {
         }
         GrafoDirigido.append("\n");
 
+        //linea divisora
+        GrafoDirigido.append("\t");
+        for (int i = 0; i < numVertices; i++) {
+            GrafoDirigido.append("--------");
+        }
+        GrafoDirigido.append("\n");
+
         //Imprimir las filas de la matriz
         for (int fila = 0; fila < numVertices; fila++) {
-            GrafoDirigido.append(nombresVertices[fila]).append("\t"); // Nombre de la fila
+            GrafoDirigido.append(nombresVertices[fila]).append("\t| ");
 
             for (int col = 0; col < numVertices; col++) {
                 GrafoDirigido.append(matrizAdyacencia[fila][col] ? "1\t" : "0\t");
             }
 
             GrafoDirigido.append("\n");
-
         }
+
         return GrafoDirigido.toString();
     }
 
@@ -262,9 +268,6 @@ public class GrafoDirigidoAciclico {
      * Regresa true si la inserción tuvo éxito, en otro caso regresa falso. Si i y j son iguales regresa falso y si la arista de i a j ya existe, de nuevo, regresa falso.
      * Si i o j está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
      */
-    // Inserta una nueva arista del vértice i al vértice j, siempre y cuando esto no ocasione la aparición de un ciclo.
-    //Regresa true si la inserción tuvo éxito, en otro caso regresa falso. Si i y j son iguales regresa falso y si la arista de i a j ya existe, de nuevo, regresa falso.
-    //Si i o j está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
     public boolean insertarArista(int i, int j){
         //validaciones
         if (i < 0 || i >= numVertices) {
@@ -274,27 +277,23 @@ public class GrafoDirigidoAciclico {
             throw new IllegalArgumentException("El vertice " + j + " esta fuera de rango.");
         }
 
-        //si son iguales generaria un ciclo
+        //si son iguales generaria un ciclo, entonces false
         if (i == j) {
             return false;
         }
 
-        // si la conexion existe regresa false
+        //si existen aristas duplicadas entonces false
         if (matrizAdyacencia[i][j]) {
+            return false;
+        }
+
+        //Si existe un camino directo o indirecto eso formaria un ciclo, entonces false
+        if (conectados(j, i)) {
             return false;
         }
 
         //si no hay errores anteriores suponemos que esta bien
         matrizAdyacencia[i][j] = true;
-
-        //verificamos si tiene ciclos
-        if (this.tieneCiclos()) {
-            //si tiene ciclos eliminamos la relacion intentada por el usuario
-            matrizAdyacencia[i][j] = false;
-            return false;
-        }
-
-        //si no hubo errores incrementamos numero de aristas y true
         this.numAristas++;
         return true;
     }
