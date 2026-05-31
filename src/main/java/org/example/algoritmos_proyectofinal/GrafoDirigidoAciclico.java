@@ -101,10 +101,44 @@ public class GrafoDirigidoAciclico {
         return null; // de mientras
     }
 
-    //Regresa true si el grafo tiene ciclos, regresa falso en caso contrario.
-    //
+    /**
+     *
+     * Regresa true si el grafo tiene ciclos, regresa falso en caso contrario.
+     */
     public boolean tieneCiclos(){
-        return false; // de mientras
+
+        ColaSimple<Integer> cola = new ColaSimple<>(numVertices);
+        int[] gradosEntradaDeVertices = new int[numVertices];
+        int nodosProcesados = 0;
+
+        for(int i = 0; i<numVertices;i++){
+            gradosEntradaDeVertices[i] = gradoDeEntrada(i);
+            if(gradosEntradaDeVertices[i] == 0){
+
+                cola.insertar(i);//mete los que tienen grado 0 de ENTRADA
+
+            }
+        }
+
+        while(!cola.estaVacia()){
+            int verticeActual = cola.eliminar(); //guardamos un nodo libre en vertice actual
+            nodosProcesados++;
+
+            //busqueda de vecinos de vertice actual
+            for(int j = 0; j< numVertices ; j++){
+                //si existe una relacion entre el actual y j
+                if(matrizAdyacencia[verticeActual][j]){
+                    gradosEntradaDeVertices[j]--;//quitamos la conexion
+
+                    //si el vertice ya no tiene conexiones se agrega
+                    if(gradosEntradaDeVertices[j] == 0){
+                        cola.insertar(j);
+                    }
+                }
+            }
+        }
+
+        return nodosProcesados != numVertices;//true si tiene ciclos, false si no
     }
 
     //Regresará los datos del grafo en forma de matriz, para mostrar en consola.
