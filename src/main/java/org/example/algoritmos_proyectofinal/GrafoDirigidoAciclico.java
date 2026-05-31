@@ -44,7 +44,7 @@ public class GrafoDirigidoAciclico {
         int contador  = 0;
 
         for(int columna = 0 ; columna < numVertices ; columna ++){
-            //si un vertice se dirige a i incrementa
+            //si i se dirige a un vertice incrementa
             if(matrizAdyacencia[i][columna]){
                 contador++;
             }
@@ -60,7 +60,14 @@ public class GrafoDirigidoAciclico {
     //Regresa true si existe una arista del vértice i al vértice j.
     //Si i o j está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
     public boolean adyacente(int i, int j){
-        return false; // de mientras
+        if(i < 0 || i>=numVertices){
+            throw new IllegalArgumentException("El vertice " + i + " esta fuera de rango.");
+        }
+        if(j < 0 || j>=numVertices){
+            throw new IllegalArgumentException("El vertice " + j + " esta fuera de rango.");
+        }
+
+        return matrizAdyacencia[i][j];
     }
 
     //Regresa true si existe un camino directo del vértice i al j.
@@ -87,8 +94,6 @@ public class GrafoDirigidoAciclico {
         return null; // de mientras
     }
 
-
-
     //METODOS PARA ESTABLECER VALORES
 
     // Inserta una nueva arista del vértice i al vértice j, siempre y cuando esto no ocasione la aparición de un ciclo.
@@ -100,6 +105,11 @@ public class GrafoDirigidoAciclico {
 
     //Elimina todas las aristas del grafo
     public void eliminarAristas(){
-
+        for(int i = 0; i < numVertices; i++){
+            for(int j = 0; j < numVertices; i++){
+                matrizAdyacencia[i][j] = false;
+            }
+        }
+        this.numAristas = 0;
     }
 }
