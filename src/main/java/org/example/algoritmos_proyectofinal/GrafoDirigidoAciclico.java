@@ -101,6 +101,7 @@ public class GrafoDirigidoAciclico {
     }
 
     //Regresa true si el grafo tiene ciclos, regresa falso en caso contrario.
+    //Utiliza busqeuda en profundidad
     public boolean tieneCiclos(){
         return false; // de mientras
     }
