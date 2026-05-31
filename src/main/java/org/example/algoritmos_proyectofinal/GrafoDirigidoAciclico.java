@@ -223,28 +223,40 @@ public class GrafoDirigidoAciclico {
      * Regresa true si la inserción tuvo éxito, en otro caso regresa falso. Si i y j son iguales regresa falso y si la arista de i a j ya existe, de nuevo, regresa falso.
      * Si i o j está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
     */
-     public boolean insertarArista(int i, int j) {
-        if (i < 0 || i >= numVertices || j < 0 || j >= numVertices) {
-            throw new IllegalArgumentException("Los índices están fuera del rango permitido.");
+    // Inserta una nueva arista del vértice i al vértice j, siempre y cuando esto no ocasione la aparición de un ciclo.
+    //Regresa true si la inserción tuvo éxito, en otro caso regresa falso. Si i y j son iguales regresa falso y si la arista de i a j ya existe, de nuevo, regresa falso.
+    //Si i o j está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
+    public boolean insertarArista(int i, int j){
+        //validaciones
+        if (i < 0 || i >= numVertices) {
+            throw new IllegalArgumentException("El vertice " + i + " esta fuera de rango.");
+        }
+        if (j < 0 || j >= numVertices) {
+            throw new IllegalArgumentException("El vertice " + j + " esta fuera de rango.");
         }
 
-        //No ciclos!!!
+        //si son iguales generaria un ciclo
         if (i == j) {
             return false;
         }
 
-        //Si la arista ya exista entonces regresa falso
-        else if (matrizAdyacencia[i][j]) {
+        // si la conexion existe regresa false
+        if (matrizAdyacencia[i][j]) {
             return false;
         }
 
-        //Si ya hay un camino de J hacia I, meter esta arista crearía un ciclo entonces rechazamos
-        else if (conectados(j, i)) {
-            return false;
-        }
-
-        //Si pasó todas las pruebas entonces insertamos con éxito
+       //si no hay errores anteriores suponemos que esta bien
         matrizAdyacencia[i][j] = true;
+
+        //verificamos si tiene ciclos
+        if (this.tieneCiclos()) {
+           //si tiene ciclos eliminamos la relacion intentada por el usuario
+            matrizAdyacencia[i][j] = false;
+            return false;
+        }
+
+        //si no hubo errores incrementamos numero de aristas y true
+        this.numAristas++;
         return true;
     }
 
