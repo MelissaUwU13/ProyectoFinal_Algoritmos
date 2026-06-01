@@ -147,7 +147,6 @@ public class GrafoDirigidoAciclico {
      * Recuerde que se deben mostrar todos los vértices del grafo.
      */
     public String topologicalSort(){
-
         //validar si el grafo es apto para ordenar (sin ciclos)
         if (this.tieneCiclos()) {
             return "Error: El grafo contiene ciclos, no se puede realizar el ordenamiento topologico.";
@@ -157,7 +156,7 @@ public class GrafoDirigidoAciclico {
         int[] gradosEntradaDeVertices = new int[numVertices];
         //vertices que ya ordenamos
         boolean[] visitados = new boolean[numVertices];
-        //resultado en stringg
+        //resultado en string
         StringBuilder resultado = new StringBuilder();
 
         //guardamos los grados de entrada de todos los vertices
