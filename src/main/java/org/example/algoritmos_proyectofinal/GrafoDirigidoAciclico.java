@@ -148,7 +148,7 @@ public class GrafoDirigidoAciclico {
      */
     public String topologicalSort(){
         //validar si el grafo es apto para ordenar (sin ciclos)
-        if (this.tieneCiclos()) {
+        if (tieneCiclos()) {
             return "Error: El grafo contiene ciclos, no se puede realizar el ordenamiento topologico.";
         }
 
