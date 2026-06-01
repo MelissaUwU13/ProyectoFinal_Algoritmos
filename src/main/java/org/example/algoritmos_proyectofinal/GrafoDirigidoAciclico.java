@@ -154,6 +154,8 @@ public class GrafoDirigidoAciclico {
 
         //guarda numero de grados de entrada de cada vertice
         int[] gradosEntradaDeVertices = new int[numVertices];
+        //guardamos los grados originales
+        int[] gradosOriginales = new int[numVertices];
         //vertices que ya ordenamos
         boolean[] visitados = new boolean[numVertices];
         //resultado en string
@@ -161,7 +163,9 @@ public class GrafoDirigidoAciclico {
 
         //guardamos los grados de entrada de todos los vertices
         for (int i = 0; i < numVertices; i++) {
-            gradosEntradaDeVertices[i] = gradoDeEntrada(i);
+            int grado = gradoDeEntrada(i);
+            gradosEntradaDeVertices[i] = grado;
+            gradosOriginales[i] = grado; //guardamos los grados originales
         }
 
         for (int paso = 0; paso < numVertices; paso++) {
@@ -171,8 +175,17 @@ public class GrafoDirigidoAciclico {
             //buscamos vertice con grado de entrada 0 y no visitado
             for (int i = 0; i < numVertices; i++) {
                 if (gradosEntradaDeVertices[i] == 0 && !visitados[i]) {
-                    verticeSeleccionado = i;
-                    break;
+                    //seleccionamos el primer vertice de grado de entrada 0
+                    if (verticeSeleccionado == -1) {
+                        verticeSeleccionado = i;
+                    }
+                    else {
+                        //Si hay más de uno con grado 0
+                        //pasa el que originalmente tenía más grados de entrada
+                        if (gradosOriginales[i] < gradosOriginales[verticeSeleccionado]) {
+                            verticeSeleccionado = i;
+                        }
+                    }
                 }
             }
 
