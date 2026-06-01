@@ -25,7 +25,6 @@ public class GrafoDirigidoAciclico {
      * Si i está fuera del rango de n -1, lance una excepción Ilegal argument value Exception.
      */
     public int gradoDeEntrada(int i){
-
         //si el vertice esta fuera de rango es INVALIDO
         if(i<0 || i>=numVertices){
             throw new IllegalArgumentException("El vertice " + i + " esta fuera de rango.");
